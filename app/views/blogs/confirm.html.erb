@@ -1,0 +1,37 @@
+<header>
+  <div class="head">
+    <%= link_to blogs_path do %>
+      <%= image_tag "logo.png", class: 'insta_logo' %>
+    <% end %>
+
+    <span><%= image_tag "recherche.png", class: 'recherche' %>rechercher</span>
+    <%= link_to "#" do %>
+      <%= image_tag "home.png", class: 'icon' %>
+      <%= image_tag "add.png", class: 'icon' %>
+      <%= image_tag "messenger.png", class: 'icon' %>
+      <%= image_tag "explore.png", class: 'icon' %>
+      <%= image_tag "like.png", class: 'icon' %>
+      <%= image_tag "user.png", class: 'icon' %>
+    <% end %>
+  </div>
+</header>
+
+<main>
+<h3>Confirmer votre poste !!!</h3>
+<%= form_with(model: @blog, url: blogs_path, local: true) do |form| %>
+  <%= image_tag(@blog.image.url) if @blog.image && @blog.image.url %>
+  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :content %>
+
+  <p><%= @blog.content %></p>
+  <br>
+  <%= form.submit "Publier" %>
+  <% end %>
+  <br>
+<%= form_with(model: @blog, url:new_blog_path, local:true, method:"get") do |form| %>
+  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :content %>
+  <%= form.submit "retourner", name: "back", class: 'botton' %>
+  <%= form.submit "Non", name: 'Non'%>
+<% end %>
+</main>

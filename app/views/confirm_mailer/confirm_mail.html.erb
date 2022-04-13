@@ -1,0 +1,11 @@
+<h1>Your inquiry is complete！</h1>
+
+<div>
+  <div>
+    <%= image_tag(@confirm.image.url) if @confirm.image && @confirm.image_url %>
+  </div>
+  <div>
+    <h4>Confirmation of inquiry contents</h4>
+    Content:<%= @confirm.content %>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> interdit l'enregistrement de cet @user</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="signup_box">
+<%= image_tag "logo.png", class: 'insta_logo1' %>
+  <p>Enregistrez Vous !<br></p>
+  <div class="login_forms">
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div>
+        <%= f.label :name, 'Nom Du Compte:' %>
+        <%= f.text_field :name %>
+      </div>
+      <div>
+        <%= f.label :email, 'Email Adress:' %>
+        <%= f.email_field :email %>
+      </div>
+      <div>
+        <%= f.label :password, 'Mot de passe :' %>
+        <%= f.password_field :password %>
+      </div>
+      <div>
+        <%= f.label :password_confirmation, 'Mot de passe (confirmation) :' %>
+        <%= f.password_field :password_confirmation %>
+      </div><br>
+          <%= f.submit "Créer un compte" %>
+      <% end %>
+  </div>
+</div>
+<div class="login_box_m">
+  <span>Avez-vous un compte ?</span> <%= link_to "Se connecter ", new_session_path, class: 'login_link' %>
+</div>

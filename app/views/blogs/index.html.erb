@@ -1,0 +1,96 @@
+<header>
+  <div class="head">
+    <%= link_to blogs_path do %>
+      <%= image_tag "logo.png", class: 'insta_logo' %>
+    <% end %>
+
+    <span><%= image_tag "recherche.png", class: 'recherche' %>rechercher</span>
+    <%= link_to "#" do %>
+      <%= image_tag "home.png", class: 'icon' %>
+      <%= image_tag "add.png", class: 'icon' %>
+      <%= image_tag "messenger.png", class: 'icon' %>
+      <%= image_tag "explore.png", class: 'icon' %>
+      <%= image_tag "like.png", class: 'icon' %>
+      <%= image_tag "user.png", class: 'icon' %>
+    <% end %>
+    <%= link_to "Se deconnecter", session_path(current_user.id), method: :delete %>
+  </div>
+</header>
+
+<main>
+  <br>
+  <br>
+  <div class="left_box">
+    <div class="share_box">
+        <button class="btn profile-edit-btn" type="button"><%= link_to 'Faire Un Poste', new_blog_path %></button>
+    </div>
+    <% @blogs.each do |blog| %>
+    <div class="main_box">
+      <table>
+        <tr>
+          <td>
+            <div class="main_box_head">
+              <% if blog.user.image.file.nil? %>
+                <%= image_tag 'no_profile_pic.png', class: 'contributer_img' %>
+                <% else %>
+                <%= image_tag blog.user.image.url, class: 'contributer_img' %>
+              <% end %>
+              <%= link_to "#{blog.user.name}", user_path(blog.user.id), class: 'contributer' %>
+              <div class="main_box_menu">
+                <%= link_to 'Voir le poste', blog_path(blog.id) %>
+                <% if current_user.id == blog.user.id %>
+                <%= link_to "Edite", edit_blog_path(blog.id) %>
+                <%= link_to 'Supprimer', blog_path(blog.id), method: :delete ,data: { confirm: 'Voulez Vous Vraiment Supprimer ?' } %>
+              </div>
+            </div>
+          </td>
+          <% end %>
+        </tr>
+        <tr>
+          <td>
+          <% if blog.image.file.nil? %>
+            <% else %>
+            <%= image_tag blog.image.url, class: 'main_box_img' %>
+          <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <div>
+            <%= image_tag "like.png", class: 'heart2_img' %>
+            <%= image_tag "comment.png", class: 'comment_img' %>
+
+           <% if @love.present? %>
+             <%= link_to love_path(id: @love.id), method: :delete do %>
+               <%= image_tag "save_1.png", class: 'save_img' %>
+             <% end %>
+             <% else %>
+             <%= link_to loves_path(blog_id: blog.id), method: :post do %>
+               <%= image_tag "save.png", class: 'save_img' %>
+             <% end %>
+           <% end %>
+
+            <p class="comment">
+              <%= link_to "#{blog.user.name}", user_path(blog.user.id), class: 'contributer' %>
+              <%= blog.content %>
+            </p>
+            <p class="upload_date"><%= blog.user.created_at.try(:strftime,"%D") %></p>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="main_box_addcomment">
+              <span>Ajoutez un commentaire</span>
+              <div class="add_contribute">Post</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <br>
+    <% end %>
+    <br>
+  </div>
+</main>

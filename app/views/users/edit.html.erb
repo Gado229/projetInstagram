@@ -1,0 +1,36 @@
+<header>
+  <div class="head">
+    <%= link_to blogs_path do %>
+      <%= image_tag "logo.png", class: 'insta_logo' %>
+    <% end %>
+
+    <span><%= image_tag "recherche.png", class: 'recherche' %>rechercher</span>
+    <%= link_to "#" do %>
+      <%= image_tag "home.png", class: 'icon' %>
+      <%= image_tag "add.png", class: 'icon' %>
+      <%= image_tag "messenger.png", class: 'icon' %>
+      <%= image_tag "explore.png", class: 'icon' %>
+      <%= image_tag "like.png", class: 'icon' %>
+      <%= image_tag "user.png", class: 'icon' %>
+    <% end %>
+  </div>
+</header>
+
+<div class="login_forms">
+<%= form_with(model: @user, local: true) do |f| %>
+  <br>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+    <p>Email: <%= @user.email %></p>
+  <%= f.label :Photo_de_profil %>
+<p>
+  <%= image_tag(@user.image.url) if @user.image && @user.image.url %>
+</p>
+<p>
+  <%= f.file_field :image %>
+  <%= f.hidden_field :image_cache %>
+</p><br>
+  <%= f.submit "Modifier" %>
+<% end %>
+</div>
